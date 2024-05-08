@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BillingSystemEDM.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BillingSystemEDMStoreContainer">
+    <EntitySet Name="BillAccounts" EntityType="BillingSystemEDM.Store.BillAccounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BillAccountPolicies" EntityType="BillingSystemEDM.Store.BillAccountPolicies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BillingTransactions" EntityType="BillingSystemEDM.Store.BillingTransactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InstallmentSummaries" EntityType="BillingSystemEDM.Store.InstallmentSummaries" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Installments" EntityType="BillingSystemEDM.Store.Installments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoices" EntityType="BillingSystemEDM.Store.Invoices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InvoiceInstallments" EntityType="BillingSystemEDM.Store.InvoiceInstallments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Payments" EntityType="BillingSystemEDM.Store.Payments" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BillAccountBillAccountPolicy" Association="BillingSystemEDM.Store.BillAccountBillAccountPolicy">
+      <End Role="BillAccount" EntitySet="BillAccounts" />
+      <End Role="BillAccountPolicy" EntitySet="BillAccountPolicies" />
+    </AssociationSet>
+    <AssociationSet Name="BillAccountBillingTransaction" Association="BillingSystemEDM.Store.BillAccountBillingTransaction">
+      <End Role="BillAccount" EntitySet="BillAccounts" />
+      <End Role="BillingTransaction" EntitySet="BillingTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="BillAccountInstallmentSummary" Association="BillingSystemEDM.Store.BillAccountInstallmentSummary">
+      <End Role="BillAccount" EntitySet="BillAccounts" />
+      <End Role="InstallmentSummary" EntitySet="InstallmentSummaries" />
+    </AssociationSet>
+    <AssociationSet Name="BillAccountPayment" Association="BillingSystemEDM.Store.BillAccountPayment">
+      <End Role="BillAccount" EntitySet="BillAccounts" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="InstallmentSummaryInstallment" Association="BillingSystemEDM.Store.InstallmentSummaryInstallment">
+      <End Role="InstallmentSummary" EntitySet="InstallmentSummaries" />
+      <End Role="Installment" EntitySet="Installments" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BillAccounts">
+    <Key>
+      <PropertyRef Name="BillAccountId" />
+    </Key>
+    <Property Name="BillAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BillAccountNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BillingType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PayorName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PayorAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymentMethod" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DueDay" Type="int" Nullable="false" />
+    <Property Name="AccountTotal" Type="float" Nullable="true" />
+    <Property Name="AccountPaid" Type="float" Nullable="true" />
+    <Property Name="AccountBalance" Type="float" Nullable="true" />
+    <Property Name="LastPaymentDate" Type="datetime" Nullable="true" />
+    <Property Name="LastPaymentAmount" Type="float" Nullable="true" />
+    <Property Name="PastDue" Type="float" Nullable="true" />
+    <Property Name="FutureDue" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BillAccountPolicies">
+    <Key>
+      <PropertyRef Name="BillAccountPolicyId" />
+    </Key>
+    <Property Name="BillAccountPolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BillAccountId" Type="int" Nullable="false" />
+    <Property Name="PayPlan" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BillingTransactions">
+    <Key>
+      <PropertyRef Name="BillingTransactionId" />
+    </Key>
+    <Property Name="BillingTransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="TransactionType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TransactionAmount" Type="float" Nullable="true" />
+    <Property Name="InvoiceId" Type="int" Nullable="true" />
+    <Property Name="PaymentId" Type="int" Nullable="true" />
+    <Property Name="BillAccountId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstallmentSummaries">
+    <Key>
+      <PropertyRef Name="InstallmentSummaryId" />
+    </Key>
+    <Property Name="InstallmentSummaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PolicyNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BillAccountId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Installments">
+    <Key>
+      <PropertyRef Name="InstallmentId" />
+    </Key>
+    <Property Name="InstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstallmentSequenceNumber" Type="int" Nullable="false" />
+    <Property Name="InstallmentSendDate" Type="datetime" Nullable="false" />
+    <Property Name="InstallmentDueDate" Type="datetime" Nullable="false" />
+    <Property Name="DueAmount" Type="float" Nullable="false" />
+    <Property Name="PaidAmount" Type="float" Nullable="true" />
+    <Property Name="BalanceAmount" Type="float" Nullable="true" />
+    <Property Name="InvoiceStatus" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="InstallmentSummaryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoices">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="SendDate" Type="datetime" Nullable="false" />
+    <Property Name="BillAccountId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="InvoiceAmount" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvoiceInstallments">
+    <Key>
+      <PropertyRef Name="InvoiceInstallmentId" />
+    </Key>
+    <Property Name="InvoiceInstallmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="InstallmentId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentMethod" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymentFrom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amount" Type="float" Nullable="false" />
+    <Property Name="BillAccountNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymentStatus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PaymentReference" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BillAccountId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="BillAccountBillAccountPolicy">
+    <End Role="BillAccount" Type="BillingSystemEDM.Store.BillAccounts" Multiplicity="1" />
+    <End Role="BillAccountPolicy" Type="BillingSystemEDM.Store.BillAccountPolicies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillAccount">
+        <PropertyRef Name="BillAccountId" />
+      </Principal>
+      <Dependent Role="BillAccountPolicy">
+        <PropertyRef Name="BillAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillAccountBillingTransaction">
+    <End Role="BillAccount" Type="BillingSystemEDM.Store.BillAccounts" Multiplicity="1" />
+    <End Role="BillingTransaction" Type="BillingSystemEDM.Store.BillingTransactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillAccount">
+        <PropertyRef Name="BillAccountId" />
+      </Principal>
+      <Dependent Role="BillingTransaction">
+        <PropertyRef Name="BillAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillAccountInstallmentSummary">
+    <End Role="BillAccount" Type="BillingSystemEDM.Store.BillAccounts" Multiplicity="1" />
+    <End Role="InstallmentSummary" Type="BillingSystemEDM.Store.InstallmentSummaries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillAccount">
+        <PropertyRef Name="BillAccountId" />
+      </Principal>
+      <Dependent Role="InstallmentSummary">
+        <PropertyRef Name="BillAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BillAccountPayment">
+    <End Role="BillAccount" Type="BillingSystemEDM.Store.BillAccounts" Multiplicity="1" />
+    <End Role="Payment" Type="BillingSystemEDM.Store.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BillAccount">
+        <PropertyRef Name="BillAccountId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="BillAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstallmentSummaryInstallment">
+    <End Role="InstallmentSummary" Type="BillingSystemEDM.Store.InstallmentSummaries" Multiplicity="1" />
+    <End Role="Installment" Type="BillingSystemEDM.Store.Installments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InstallmentSummary">
+        <PropertyRef Name="InstallmentSummaryId" />
+      </Principal>
+      <Dependent Role="Installment">
+        <PropertyRef Name="InstallmentSummaryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BillingSystemEDMStoreContainer" CdmEntityContainer="BillingSystemEDMContainer">
+    <EntitySetMapping Name="BillAccounts">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.BillAccount)">
+        <MappingFragment StoreEntitySet="BillAccounts">
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+          <ScalarProperty Name="BillAccountNumber" ColumnName="BillAccountNumber" />
+          <ScalarProperty Name="BillingType" ColumnName="BillingType" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PayorName" ColumnName="PayorName" />
+          <ScalarProperty Name="PayorAddress" ColumnName="PayorAddress" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="DueDay" ColumnName="DueDay" />
+          <ScalarProperty Name="AccountTotal" ColumnName="AccountTotal" />
+          <ScalarProperty Name="AccountPaid" ColumnName="AccountPaid" />
+          <ScalarProperty Name="AccountBalance" ColumnName="AccountBalance" />
+          <ScalarProperty Name="LastPaymentDate" ColumnName="LastPaymentDate" />
+          <ScalarProperty Name="LastPaymentAmount" ColumnName="LastPaymentAmount" />
+          <ScalarProperty Name="PastDue" ColumnName="PastDue" />
+          <ScalarProperty Name="FutureDue" ColumnName="FutureDue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillAccountPolicies">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.BillAccountPolicy)">
+        <MappingFragment StoreEntitySet="BillAccountPolicies">
+          <ScalarProperty Name="BillAccountPolicyId" ColumnName="BillAccountPolicyId" />
+          <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+          <ScalarProperty Name="PayPlan" ColumnName="PayPlan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillingTransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.BillingTransaction)">
+        <MappingFragment StoreEntitySet="BillingTransactions">
+          <ScalarProperty Name="BillingTransactionId" ColumnName="BillingTransactionId" />
+          <ScalarProperty Name="ActivityDate" ColumnName="ActivityDate" />
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstallmentSummaries">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InstallmentSummary)">
+        <MappingFragment StoreEntitySet="InstallmentSummaries">
+          <ScalarProperty Name="InstallmentSummaryId" ColumnName="InstallmentSummaryId" />
+          <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Installments">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.Installment)">
+        <MappingFragment StoreEntitySet="Installments">
+          <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
+          <ScalarProperty Name="InstallmentSequenceNumber" ColumnName="InstallmentSequenceNumber" />
+          <ScalarProperty Name="InstallmentSendDate" ColumnName="InstallmentSendDate" />
+          <ScalarProperty Name="InstallmentDueDate" ColumnName="InstallmentDueDate" />
+          <ScalarProperty Name="DueAmount" ColumnName="DueAmount" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+          <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+          <ScalarProperty Name="InstallmentSummaryId" ColumnName="InstallmentSummaryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.Invoice)">
+        <MappingFragment StoreEntitySet="Invoices">
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="InvoiceAmount" ColumnName="InvoiceAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceInstallments">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.InvoiceInstallment)">
+        <MappingFragment StoreEntitySet="InvoiceInstallments">
+          <ScalarProperty Name="InvoiceInstallmentId" ColumnName="InvoiceInstallmentId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="InstallmentId" ColumnName="InstallmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="IsTypeOf(BillingSystemEDM.Payment)">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="PaymentFrom" ColumnName="PaymentFrom" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="BillAccountNumber" ColumnName="BillAccountNumber" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="PaymentReference" ColumnName="PaymentReference" />
+          <ScalarProperty Name="BillAccountId" ColumnName="BillAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

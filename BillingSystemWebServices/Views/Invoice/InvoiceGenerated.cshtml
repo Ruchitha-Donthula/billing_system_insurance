@@ -1,0 +1,18 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "InvoiceGenerated";
+}
+
+<h2>Invoice Generated</h2>
+
+<div class="alert alert-success" role="alert">
+    Invoice Number: @Model <!-- Display invoice number -->
+</div>
+
+@* Add button to generate PDF again *@
+@using (Html.BeginForm("GenerateInvoicePDF", "Invoice", FormMethod.Get))
+{
+    @Html.Hidden("invoiceNumber", Model) <!-- Pass invoice number as a hidden field -->
+    <button type="submit" class="btn btn-primary">Generate Invoice PDF</button>
+}
